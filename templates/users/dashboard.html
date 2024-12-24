@@ -1,0 +1,169 @@
+{% extends 'ecommerce/home.html' %}
+{% block content %}
+{% load custom_filters %}
+{% load static %}
+
+<div class="dashboard-container">
+    <h2>لوحة تحكم العملاء</h2>
+    <div class="customers-list"> 
+        {% if customers %}
+            {% for customer in customers %}
+                <div class="customer-card">
+                    <h3>العميل: {{ customer.user.get_full_name }}</h3>
+                    <p><strong>رقم الهاتف:</strong> {{ customer.phone }}</p>
+                    <p><strong>العنوان:</strong></p>
+                    <p>{{ customer.address1 }}</p>
+                    <p>{{ customer.address2 }}</p>
+                    <p>{{ customer.city }}, {{ customer.state }} - {{ customer.zip_code }}</p>
+                    <hr>
+                    <h4>الطلبات:</h4>
+                    <div class="orders-list">
+                        {% for order in customer.user.orders.all %}
+                            <div class="order-card">
+                                <p><strong>رقم الطلب:</strong> {{ order.id }}</p>
+                                <p>
+                                    <strong>حالة الطلب:</strong> 
+                                    <span class="status-circle {% if order.complete %}completed{% else %}pending{% endif %}"></span>
+                                    {{ order.get_status_display }}
+                                </p>
+                                <p><strong>التاريخ:</strong> {{ order.ordered_date }}</p>
+                                
+                                <h5>المنتجات:</h5>
+                                <ul>
+                                    {% for item in order.items.all %}
+                                        <li>
+                                            <div class="product-item">
+                                                {% if item.product.image %}
+                                                    <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" class="product-image">
+                                                {% else %}
+                                                    <img src="{% static 'images/default-product.png' %}" alt="No Image" class="product-image">
+                                                {% endif %}
+                                                <div class="product-details">
+                                                    <p><strong>اسم المنتج:</strong> {{ item.product.name }}</p>
+                                                    <p><strong>وصف المنتج:</strong> {{ item.product.description|default:"لا يوجد وصف" }}</p>
+                                                    <p><strong>الكمية:</strong> {{ item.quantity }}</p>
+                                                    <p><strong>السعر:</strong> {{ item.price }}$</p>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    {% empty %}
+                                        <p>لا توجد منتجات لهذا الطلب.</p>
+                                    {% endfor %}
+                                </ul>
+
+                                <p><strong>الإجمالي:</strong> {{ order.total }}$</p> <!-- استخدم الحقل المحسوب من views -->
+                            </div>
+                        {% empty %}
+                            <p>لا توجد طلبات لهذا العميل.</p>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>لا يوجد عملاء لعرضهم.</p>
+        {% endif %}
+    </div>
+</div>
+
+<style>
+    .dashboard-container {
+        padding: 20px;
+        background-color: #f9f9f9;
+    }
+
+    .customers-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 20px;
+    }
+
+    .customer-card {
+        background-color: white;
+        border-radius: 10px;
+        padding: 15px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .customer-card h3 {
+        color: #007bff;
+        margin-bottom: 10px;
+    }
+
+    .customer-card p {
+        margin: 5px 0;
+        color: #555;
+    }
+
+    .customer-card strong {
+        color: #333;
+    }
+
+    .orders-list {
+        margin-top: 10px;
+    }
+
+    .order-card {
+        padding: 15px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        background-color: #fff;
+        border: 1px solid #ddd;
+    }
+
+    .order-card p {
+        margin: 5px 0;
+    }
+
+    .order-card h5 {
+        margin-top: 10px;
+        font-size: 16px;
+    }
+
+    .order-card ul {
+        list-style-type: none;
+        padding-left: 0;
+    }
+
+    .order-card li {
+        margin: 10px 0;
+    }
+
+    .product-item {
+        display: flex;
+        align-items: flex-start;
+        margin-bottom: 15px;
+    }
+
+    .product-image {
+        width: 60px;
+        height: 60px;
+        border-radius: 5px;
+        margin-right: 15px;
+        object-fit: cover;
+    }
+
+    .product-details {
+        flex-grow: 1;
+    }
+
+    .product-details p {
+        margin: 5px 0;
+    }
+
+    .status-circle {
+        display: inline-block;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        margin-left: 10px;
+    }
+
+    .status-circle.completed {
+        background-color: green;
+    }
+
+    .status-circle.pending {
+        background-color: red;
+    }
+</style>
+{% endblock %}

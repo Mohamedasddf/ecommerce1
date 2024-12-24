@@ -1,0 +1,17 @@
+def dashboard(request):
+    # جلب جميع العملاء مع طلباتهم المرتبطة
+    customers = Customer.objects.prefetch_related('user', 'user__orders', 'user__orders__items')
+
+    # حساب الإجمالي لكل طلب
+    for customer in customers:
+        for order in customer.user.orders.all():
+            total = 0
+            for item in order.items.all():
+                total += item.price * item.quantity
+            order.total = total  # إضافة الحقل الإجمالي في الطلب
+            order.save()  # حفظ الإجمالي في قاعدة البيانات إذا كنت ترغب في تخزينه
+            
+    context = {
+        'customers': customers,
+    }
+    return render(request, 'users/dashboard.html', context)    

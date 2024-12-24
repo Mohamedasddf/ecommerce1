@@ -1,0 +1,406 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <!-- Add meta tags for mobile and IE -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Ecommerce</title>
+    <style>
+
+/* تخصيص الناف بار الرفيع */
+.navbar3 {
+    background-color: #282626; /* خلفية داكنة */
+    color: white; /* النص باللون الأبيض */
+    padding: 10px 0; /* حشوة أعلى وأسفل لضبط الارتفاع */
+    text-align: center; /* تمركز النصوص داخل الناف بار */
+    font-family: Arial, sans-serif; /* تعيين خط */
+}
+
+/* تنسيق القائمة */
+.navbar3 ul {
+    list-style: none; /* إزالة النقاط من القائمة */
+    margin: 0; /* إزالة الهوامش */
+    padding: 0; /* إزالة الحشوات */
+    display: flex; /* جعل العناصر في صف واحد */
+    justify-content: center; /* تمركز العناصر أفقياً */
+}
+
+/* تنسيق عناصر القائمة */
+.navbar3 ul li {
+    margin: 0 20px; /* مسافة بين العناصر */
+}
+
+/* تنسيق الروابط */
+.navbar3 a {
+    text-decoration: none; /* إزالة التسطير من الروابط */
+    color: white; /* لون النص أبيض */
+    font-size: 16px; /* حجم الخط */
+    font-weight: bold; /* جعل النص غامق */
+    transition: color 0.3s; /* تأثير تغيير اللون */
+}
+
+/* تأثير عند التمرير على الروابط */
+.navbar3 a:hover {
+    color: #FF5733; /* تغيير اللون عند التمرير */
+}
+
+/* تخصيص خلفية شريط التنقل الأول والجزء الذي يليه */
+.navbar1, .owners-section {
+    background: linear-gradient(to right, #fff5f5, #ffffff);
+    color: rgb(0, 0, 0);
+    padding: 40px 0; /* إضافة padding للحفاظ على المسافة المناسبة بين المحتوى والحواف */
+}
+
+/* تخصيص شريط التنقل الأول */
+.navbar1 h1 {
+    font-size: 40px;
+    text-align: center;
+    margin: 0;
+}
+
+.navbar1 p {
+    font-size: 20px;
+    text-align: center;
+    margin-top: 10px;
+}
+
+/* إعدادات الصفحة بشكل عام */
+body {
+    background-color: #f8f9fa;
+    font-family: Arial, sans-serif;
+    direction: rtl; /* لتغيير اتجاه النص إلى اليمين */
+    margin: 0;
+    padding: 0;
+}
+
+/* تصميم شريط التنقل */
+.navbar {
+    background: linear-gradient(to right, #004d40, #80cbc4); /* تدرج من الأزرق الداكن إلى الأزرق الفاتح */
+    color: white;
+    padding: 10px 20px; /* زيادة المساحة الداخلية (الطول) */
+    display: flex;
+    justify-content: center; /* لتحريك الشريط إلى المنتصف */
+    align-items: center;
+    flex-direction: column;
+}
+
+.navbar h1 {
+    font-size: 40px;
+    margin: 10px 0;
+}
+
+.navbar p {
+    font-size: 20px;
+    margin: 10px 0;
+    max-width: 800px;
+}
+
+/* تأثير على النصوص داخل navbar عند التمرير */
+.navbar-nav .nav-link {
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.navbar-nav .nav-link:hover {
+    color: #007bff; /* تغيير اللون عند التمرير على النص */
+    text-decoration: underline; /* إضافة خط تحت النص عند التمرير */
+    transform: translateY(-5px); /* رفع الزر قليلاً عند التمرير */
+}
+
+/* تخصيص شريط التنقل */
+.navbar-toggler {
+    display: block; /* جعل الزر يظهر فقط في الشاشات الصغيرة */
+}
+
+/* عند تصغير الشاشة تحت 992px */
+@media (max-width: 992px) {
+    /* تأكد من أن القائمة المنسدلة مخفية عند البدء */
+    .navbar-collapse {
+        display: none; /* القائمة مخفية افتراضيًا */
+    }
+
+    /* عندما تظهر القائمة المنسدلة */
+    .navbar-collapse.show {
+        display: block; /* جعل القائمة مرئية عند تفعيل التبديل */
+    }
+}
+
+
+
+
+
+      /* تخصيص الفوتر */
+      footer {
+          background: linear-gradient(to right, #004d40, #80cbc4); /* تدرج من الأزرق الداكن إلى الأزرق الفاتح */
+          color: #ffffff;
+          padding: 40px 0;
+          direction: rtl; /* جعل النصوص من اليمين لليسار */
+      }
+  
+      /* تخصيص العناوين داخل الفوتر */
+      footer h5 {
+          font-size: 1.1rem;
+          margin-bottom: 20px;
+          color: #ffeb3b; /* لون العنوان باللون الأصفر الفاتح */
+      }
+  
+      /* تخصيص الفقرات داخل الفوتر */
+      footer p {
+          font-size: 0.9rem;
+          color: #d1d1d1; /* لون النصوص الرمادية */
+          margin-bottom: 20px;
+      }
+  
+      /* تنظيم الصفوف داخل الفوتر */
+      footer .row {
+          display: flex;
+          justify-content: space-between;
+          flex-wrap: wrap;
+      }
+  
+      /* تنسيق القوائم داخل الفوتر */
+      footer ul {
+          list-style: none;
+          padding: 0;
+      }
+  
+      /* تخصيص العناصر في القائمة */
+      footer ul li {
+          margin-bottom: 10px;
+      }
+  
+      /* تخصيص الروابط داخل القوائم */
+      footer ul li a {
+          color: #ffffff;
+          text-decoration: none;
+          font-size: 0.9rem;
+          transition: color 0.3s ease;
+      }
+  
+      /* تغيير لون الروابط عند التمرير */
+      footer ul li a:hover {
+          color: #ffeb3b; /* تغيير اللون إلى الأصفر عند التمرير */
+      }
+  
+      /* تنسيق الأيقونات الاجتماعية */
+      footer .social-icons {
+          display: flex;
+          justify-content: flex-start;
+      }
+  
+      /* تخصيص الأيقونات الاجتماعية */
+      footer .social-icons a {
+          color: #ffffff;
+          margin-right: 15px;
+          font-size: 1.5rem;
+          transition: color 0.3s ease;
+      }
+  
+      /* تغيير لون الأيقونات عند التمرير */
+      footer .social-icons a:hover {
+          color: #ffeb3b; /* تغيير الأيقونات إلى الأصفر عند التمرير */
+      }
+  
+      /* تخصيص النص في الجزء السفلي من الفوتر */
+      footer .copy-right {
+          text-align: center;
+          margin-top: 20px;
+          font-size: 0.85rem;
+          color: #eeeeee;
+      }
+  
+      /* تخصيص روابط الجزء السفلي من الفوتر */
+      footer .copy-right a {
+          color: #ffeb3b; /* جعل الروابط في الفوتر باللون الأصفر الفاتح */
+          text-decoration: none;
+      }
+  
+      /* تغيير لون الروابط في الجزء السفلي عند التمرير */
+      footer .copy-right a:hover {
+          color: #ffffff; /* تغيير الرابط إلى اللون الأبيض عند التمرير */
+      }
+
+
+
+
+  </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <!-- شعار الموقع -->
+            <a class="navbar-brand d-flex align-items-center" href="#">
+                ＳＨＯＰ ＮＯＷ
+            </a>
+    
+            <!-- رمز سلة التسوق -->
+            <a class="d-flex align-items-center text-decoration-none text-dark ms-3" href="{% url 'cart' %}">
+                <svg xmlns="http://www.w3.org/2000/svg" style="margin-left: 10px;" width="16" height="16" fill="currentColor" class="bi bi-cart3" viewBox="0 0 16 16">
+                    <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l.84 4.479 9.144-.459L13.89 4zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />
+                </svg>
+            </a>
+    
+            <!-- زر التبديل لتوسيع/إخفاء القائمة -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+    
+            <!-- محتوى القائمة -->
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <!-- روابط التنقل -->
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item {% if '/' == request.path %} active {% endif %}">
+                        <a class="nav-link" href="{% url 'index' %}">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house-door-fill" viewBox="0 0 16 16">
+                                <path d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5" />
+                            </svg>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'product1'%}">منتجاتنا</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'search' %}">ابحث عن منتج </a>
+                    </li>
+    
+                    <!-- زر المفضلة -->
+                    {% if request.user.is_authenticated %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'show_product_favorites' %}">
+                                المنتجات المفضلة
+                            </a>
+                        </li>
+                    {% endif %}
+                </ul>
+    
+                <!-- نموذج البحث -->
+                <form class="d-flex ms-auto" action="{% url 'search_results' %}" method="GET" id="productSearchForm">
+                    <input class="form-control me-2" type="search" placeholder="بحث عن منتج" aria-label="بحث" name="name" id="searchInput">
+                    <button class="btn btn-outline-success" type="submit">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85zm-5.442 0a5.5 5.5 0 1 1 0-11 5.5 5.5 0 0 1 0 11z" />
+                        </svg>
+                    </button>
+                </form>
+    
+                <!-- حالة المستخدم -->
+                <ul class="navbar-nav ms-2">
+                    {% if request.user.is_authenticated %}
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                مرحباً، {{ request.user.username }}
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                                <li><a class="dropdown-item" href="{% url 'profile_view' %}">Your Profile</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="{% url 'logout'%}">تسجيل خروج</a></li>
+                            </ul>
+                        </li>
+                    {% else %}
+                        <li class="nav-item" id="loginButtons">
+                            <a class="btn btn-outline-primary me-2" href="{% url 'signup' %}">تسجيل</a>
+                            <a class="btn btn-primary" href="{% url 'login' %}">تسجيل الدخول</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+<!-- Navbar الصغيرة -->
+<nav class="navbar navbar-expand-lg small-navbar">
+    <div class="container-fluid justify-content-between">
+        <ul class="navbar-nav">
+            <li class="nav-item"><a class="nav-link" href="#">عروض خاصة</a></li>
+            <li class="nav-item"><a class="nav-link" href="#">منتجات جديده</a></li>
+            <li class="nav-item"><a class="nav-link" href="#">الأكثر مبيعًا</a></li>
+            <li class="nav-item"><a class="nav-link" href="#">التخفيضات</a></li>
+        </ul>
+    </div>
+</nav>
+
+
+<!-- ناف بار رفيع -->
+<nav class="navbar3">
+    <ul>
+        <li><a href="#">ملابس</a></li>
+        <li><a href="#perfumes">عطور</a></li>
+        <li><a href="#home-tools">أدوات منزلية</a></li>
+        <li><a href="#electronics">إلكترونيات</a></li>
+        <li><a href="#beauty">مستحضرات تجميل</a></li>
+        <li><a href="#toys">ألعاب أطفال</a></li>
+    </ul>
+</nav>
+<div class="container">
+    {% block content %}  
+    {% endblock %}
+</div>
+
+
+
+
+
+<footer>
+    <div class="container-fluid p-4">
+        <div class="row">
+            <div class="col-lg-4 col-md-12 mb-4">
+                <h5>تواصل معنا</h5>
+                <p>نحن هنا لمساعدتك! يمكنك الاتصال بنا عبر البريد الإلكتروني أو الهاتف.</p>
+                <a href="mailto:info@shopnow.com" class="btn btn-primary">اتصل بنا</a>
+            </div>
+           <div class="col-lg-4 col-md-12 mb-4">
+                <h5>خدماتنا</h5>
+                <ul>
+                    <li><a href="#">دعم العملاء</a></li>
+                    <li><a href="#">الاسترجاع والاستبدال</a></li>
+                    <li><a href="#">الشروط والأحكام</a></li>
+                </ul>
+            </div>
+            <div class="col-lg-4 col-md-12 mb-4">
+                <h5>تابعونا</h5>
+                <div class="social-icons">
+                    <a href="#" class="me-4"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="me-4"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="me-4"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="me-4"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="copy-right">
+        © 2024 جميع الحقوق محفوظة: <a href="#">Shop Now</a>
+    </div>
+</footer>
+
+<!-- إضافة JS لـ Bootstrap (مع Popper.js) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-SWz20/s5Ej2qO/s5d5UqG56e/NpE1n9+F9i52TVrF7THQq1/sQ3euIWqEzB0XWwF" crossorigin="anonymous"></script>
+
+<!-- إضافة Swiper JS -->
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
+<!-- إضافة ملف JavaScript محلي -->
+<script type="text/javascript" src="{% static 'js/cart.js' %}"></script>
+
+<script>
+    function checkLoginStatus() {
+        const loggedIn = false; // قم بتغيير هذه القيمة وفقاً لحالة تسجيل الدخول
+
+        if (loggedIn) {
+            document.getElementById('userDropdown').style.display = 'block';
+            document.getElementById('loginButtons').style.display = 'none';
+        } else {
+            document.getElementById('userDropdown').style.display = 'none';
+            document.getElementById('loginButtons').style.display = 'flex';
+        }
+    }
+</script>
+</body>
+</html>

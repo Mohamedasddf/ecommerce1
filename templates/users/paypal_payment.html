@@ -1,0 +1,6 @@
+<!-- paypal_payment.html -->
+<h2>اختار طريقة الدفع عبر باي بال</h2>
+<form action="{% url 'paypal_payment' %}" method="post">
+  {% csrf_token %}
+  <button type="submit">ادفع عبر باي بال</button>
+</form>

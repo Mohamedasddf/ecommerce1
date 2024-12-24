@@ -1,0 +1,249 @@
+/* إعدادات الصفحة بشكل عام */
+body {
+    background-color: #f8f9fa;
+    font-family: Arial, sans-serif;
+}
+
+/* تحسين الرسالة الترحيبية */
+.welcome-message {
+    display: block;
+    position: relative;
+    margin: 20px auto;
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    animation: fadeIn 1.5s ease-in-out;
+    max-width: 600px;
+}
+
+/* تأثير fadeIn */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* تنسيق المستطيل الكبير */
+.rectangle {
+    position: relative;
+    margin: 20px auto;
+    width: 100%;
+    height: 600px;
+    background-size: cover;
+    background-position: center;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* تنسيق سلايدر الصور */
+.swiper {
+    height: 600px;
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+/* المربعات المنبثقة الصغيرة */
+.image-box {
+    background-color: #e9ecef;
+    border-radius: 10px;
+    height: 200px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.image-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+/* تنسيق الشبكة للمربعات */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.section {
+    margin-bottom: 40px;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr); /* 6 أعمدة */
+    grid-template-rows: auto; /* تعديل الصفوف لتكون مرنة */
+    gap: 20px;
+    justify-items: center;
+    margin-bottom: 30px;
+}
+
+.grid-item {
+    background-color: #e0e0e0;
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden;
+}
+
+/* التأكد من ملء الصورة للمربع */
+.grid-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* تعديل هذه الخاصية */
+}
+
+/* تأثير عند المرور على المربع */
+.grid-item:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+}
+
+/* تحسين استجابة التصميم */
+@media (max-width: 1024px) {
+    .grid-container {
+        grid-template-columns: repeat(4, 1fr); /* 4 أعمدة عند الشاشات الصغيرة */
+    }
+}
+
+@media (max-width: 768px) {
+    .grid-container {
+        grid-template-columns: repeat(3, 1fr); /* 3 أعمدة */
+    }
+}
+
+@media (max-width: 480px) {
+    .grid-container {
+        grid-template-columns: repeat(2, 1fr); /* 2 أعمدة */
+    }
+
+    .grid-item {
+        height: 250px; /* رفع ارتفاع المربعات في الشاشات الصغيرة */
+    }
+}
+
+/* تحسين خلفية المستطيل */
+.rectangle {
+    position: relative;
+    margin: 20px auto;
+    width: 100%;
+    height: 600px;
+    background-size: cover;
+    background-position: center;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* تحسين الـ Swiper ليتناسب مع مختلف الأحجام */
+.swiper-slide {
+    background-size: cover;
+    background-position: center;
+    border-radius: 10px;
+    transition: transform 0.3s ease-in-out;
+}
+
+/* تدرج لوني للـ Navbar */
+.navbar {
+    background: linear-gradient(to right, #004d40, #80cbc4); /* تدرج من الأزرق الداكن إلى الأزرق الفاتح */
+    border-radius: 0px;
+}
+
+/* تنسيق الروابط في الـ Navbar */
+.navbar-light .navbar-nav .nav-link {
+    color: #ffffff; /* النص باللون الأبيض */
+}
+
+.navbar-light .navbar-nav .nav-link.active {
+    color: #ffeb3b; /* النص النشط باللون الأصفر الفاتح */
+}
+
+/* تغيير لون الأيقونات عند التمرير */
+.navbar-light .navbar-toggler-icon {
+    background-color: #ffffff; /* تغيير لون الأيقونة */
+}
+
+/* عند المرور على الرابط */
+.navbar-light .navbar-nav .nav-link:hover {
+    color: #ffeb3b; /* النص يتحول إلى اللون الأصفر عند التمرير */
+}
+
+/* تدرج لوني للفوتر */
+footer {
+    background: linear-gradient(to right, #004d40, #80cbc4); /* تدرج من الأزرق الداكن إلى الأزرق الفاتح */
+    color: #ffffff; /* النص باللون الأبيض لتحسين وضوحه */
+    padding: 40px 0; /* إضافة حشو لتحسين المسافات */
+}
+
+footer h5 {
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+    color: #ffeb3b; /* عنوان الفقرات باللون الأصفر الفاتح */
+}
+
+footer .row {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+footer .col-lg-4, footer .col-md-12 {
+    margin-bottom: 20px;
+}
+
+footer ul {
+    list-style: none;
+    padding: 0;
+}
+
+footer ul li {
+    margin-bottom: 10px;
+}
+
+footer ul li a {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+
+footer ul li a:hover {
+    color: #ffeb3b; /* تغيير لون الرابط عند التمرير */
+}
+
+footer .social-icons {
+    display: flex;
+    justify-content: flex-start;
+}
+
+footer .social-icons a {
+    color: #ffffff;
+    margin-right: 15px;
+    font-size: 1.2rem;
+    transition: color 0.3s ease;
+}
+
+footer .social-icons a:hover {
+    color: #ffeb3b; /* تغيير الأيقونات إلى الأصفر عند التمرير */
+}
+
+footer .copy-right {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 0.85rem;
+    color: #eeeeee;
+}
+
+footer .copy-right a {
+    color: #ffeb3b; /* جعل الروابط في الفوتر باللون الأصفر الفاتح */
+}
+
+

@@ -1,0 +1,77 @@
+/* تخصيص اللون الخلفي للـ header مع تأثير */
+#header {
+    background-color: #ff6f61 !important; /* لون أحمر برتقالي جذاب */
+    color: #ffffff !important; /* النص باللون الأبيض */
+    padding: 20px;
+    text-align: center;
+    font-size: 28px;
+    font-weight: bold;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* ظل ناعم أسفل الـ header */
+    transition: background-color 0.3s ease; /* تأثير عند التمرير */
+}
+
+#header:hover {
+    background-color: #ff8a75 !important; /* تغيير اللون عند التمرير */
+}
+
+/* تخصيص الخطوط الخلفية مع تدرج الألوان */
+module h2, .module caption, .inline-group h2 {
+    margin: 0;
+    padding: 8px;
+    font-weight: 400;
+    font-size: 13px;
+    background: linear-gradient(135deg, #ff6f61, #ffbc00) !important; /* تدرج بين الأحمر البرتقالي والأصفر */
+    text-align: left;
+    color: #fff !important;
+}
+
+div.breadcrumbs {
+    background: linear-gradient(135deg, #ff6f61, #ffbc00) !important; /* تدرج بين الأحمر البرتقالي والأصفر */
+    padding: 10px 40px;
+    border: none;
+    font-size: 14px;
+    color: #c4dce8 !important;
+    text-align: left;
+}
+
+/* تخصيص الأزرار */
+button, 
+input[type=submit], 
+input[type=button], 
+.submit-row input, 
+a.button {
+    background: linear-gradient(135deg, #ff6f61, #ffbc00) !important; /* تدرج بين الأحمر البرتقالي والأصفر */
+    padding: 10px 15px !important;
+    border: none !important;
+    border-radius: 4px !important;
+    color: #fff !important;
+    cursor: pointer !important;
+}
+
+button.default, 
+input[type=submit].default, 
+.submit-row input.default {
+    float: right;
+    font-weight: 400 !important;
+    background: linear-gradient(135deg, #ff6f61, #ffbc00) !important; /* تدرج بين الأحمر البرتقالي والأصفر */
+}
+
+/* تأثير hover للأزرار */
+button:hover, 
+input[type=submit]:hover, 
+input[type=button]:hover, 
+.submit-row input:hover, 
+a.button:hover {
+    background: linear-gradient(135deg, #ff8a75, #ffd34d) !important; /* تغيير اللون عند التمرير */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2) !important; /* إضافة ظل خفيف */
+}
+
+.button, input[type=submit], input[type=button], .submit-row input, a.button {
+    background: linear-gradient(135deg, #ff8a75, #ffd34d) !important; /* تغيير اللون عند التمرير */
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    color: #fff;
+    cursor: pointe
+}

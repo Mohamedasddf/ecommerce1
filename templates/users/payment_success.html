@@ -1,0 +1,125 @@
+{% extends 'ecommerce/home.html' %}
+
+{% block content %}
+    <div class="form-container">
+        {% if request.user.is_authenticated %}
+        <div class="row">
+            <div class="col-md-6 order-summary-container">
+                <h5>تم الدفع بنجاح</h5>
+                <div class="thank-you-message">
+                    <p class="mt-3 text-center">
+                        شكرًا لك على اختيارك لخدماتنا! نحن نقدر ثقتك بنا ونتطلع إلى خدمتك مجددًا.
+                    </p>
+                    <hr>
+                    <h5>رقم الطلب: {{ order.id }}</h5>
+                    <p>تمت معالجة الدفع بنجاح! سيتم شحن طلبك قريبًا.</p>
+                </div>
+                <button class="back-to-store-btn" onclick="goToStore()">رجوع إلى المتجر</button>
+            </div>
+        </div>
+        {% else %}
+        <p class="confirmation-message">من فضلك، قم بتسجيل الدخول لمتابعة الطلب.</p>
+        {% endif %}
+    </div>
+
+    <style>
+        /* تنسيق الصفحة بالكامل */
+        .form-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .order-summary-container {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        h5 {
+            font-size: 1.5rem;
+            color: #28a745;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .thank-you-message {
+            margin-top: 20px;
+            font-size: 1.2rem;
+            color: #555;
+            text-align: center;
+        }
+
+        .thank-you-message p {
+            font-size: 1rem;
+            color: #888;
+        }
+
+        .mt-3 {
+            margin-top: 15px;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        hr {
+            border: 1px solid #e0e0e0;
+            margin: 20px 0;
+        }
+
+        /* تنسيق زر "رجوع إلى المتجر" */
+        .back-to-store-btn {
+            display: block;
+            width: 100%;
+            background-color: #007bff;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background-color 0.3s ease;
+        }
+
+        .back-to-store-btn:hover {
+            background-color: #0056b3;
+        }
+
+        /* تنسيق التنبيه عند التأكيد */
+        .confirmation-message {
+            font-size: 1.1rem;
+            color: #007bff;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        /* تأثير اختفاء العنصر تدريجياً عند التحميل */
+        .thank-you-message p {
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+    </style>
+
+    <script>
+        // دالة للرجوع إلى صفحة المتجر
+        function goToStore() {
+            window.location.href = '/';  // إعادة توجيه المستخدم إلى الصفحة الرئيسية أو صفحة المتجر
+        }
+
+        // إضافة تأثير عند التحميل
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(function() {
+                const thankYouMessage = document.querySelector('.thank-you-message p');
+                thankYouMessage.style.opacity = 1; // عرض الرسالة بشكل تدريجي
+            }, 500); // تأخير 500 مللي ثانية
+        });
+    </script>
+
+{% endblock %}

@@ -1,0 +1,87 @@
+<div class="container my-4">
+    <div class="row">
+        {% for product in products %}
+        <div class="col-md-2 mb-4"> <!-- تعديل هنا لزيادة عدد الكروت في الصف -->
+            <div class="card h-100"> <!-- استخدام h-100 لجعل الكروت بنفس الارتفاع -->
+                <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}">
+                <div class="card-body d-flex flex-column"> <!-- جعل المحتوى داخل الكارت مرن -->
+                    <div class="product-separator mb-2"></div> <!-- إضافة مسافة أسفل الفاصل -->
+                    <h5 class="card-title">{{ product.name }}</h5>
+                    <div class="mt-auto"> <!-- دفع الزر إلى الأسفل -->
+                        <p class="price">${{ product.price|floatformat:2 }}</p>
+                        <button data-product="{{ product.id }}" data-action="add" class="btn btn-buy add-btn update-cart"> أضف إلى السلة</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<style>
+    .card {
+        width: 100%;
+        border-radius: 10px;
+        overflow: hidden;
+        text-align: center;
+    }
+
+    .card-img-top {
+        width: 100%;
+        height: auto;
+        max-height: 230px;
+        object-fit: contain;
+        margin: 0 auto;
+        display: block;
+    }
+
+    .card-body {
+        padding: 15px;
+    }
+
+    .product-separator {
+        border-top: 1px solid #ccc;
+        margin: 10px 0;
+    }
+
+    .btn-buy {
+        background-color: #229e3f;
+        color: white;
+    }
+
+    .row {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+    .card-footer {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px 15px;
+    }
+
+    .price {
+        text-align: right;
+    }
+
+    footer {
+        width: 100%;
+        position: relative;
+        left: 0;
+        right: 0;
+    }
+
+    .nav-link {
+        position: relative; /* اجعل الموضع نسبيًا للسماح بالموضع المطلق لعلامة العد */
+    }
+
+    #cart-count {
+        position: absolute; /* اجعل الموضع مطلقًا */
+        top: -5px; /* ضبط الموضع العمودي */
+        right: -10px; /* ضبط الموضع الأفقي */
+        border-radius: 50%; /* اجعلها دائرية */
+        padding: 2px 5px; /* إضافة بعض الحشو */
+        font-size: 0.75rem; /* حجم خط أصغر */
+    }
+</style>

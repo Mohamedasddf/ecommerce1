@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منتجاتك المفضلة</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 15px;
+            text-align: center;
+        }
+        .container {
+            padding: 20px;
+        }
+        .product {
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin: 10px 0;
+            padding: 15px;
+            background-color: #fff;
+            display: flex;
+            align-items: center;
+        }
+        .product img {
+            max-width: 100px;
+            margin-right: 20px;
+            border-radius: 5px;
+            transition: transform 0.3s ease;
+        }
+        .product img:hover {
+            transform: scale(1.05);
+        }
+        .product h2 {
+            margin: 0 0 10px;
+        }
+        .product p {
+            margin: 5px 0;
+        }
+        .no-products {
+            text-align: center;
+            margin: 50px 0;
+        }
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            background-color: #007bff;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+        .back-link:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>منتجاتك المفضلة</h1>
+    </header>
+    <div class="container">
+        {% if favorite_products %}
+            {% for product in favorite_products %}
+            <div class="product">
+                <a href="{% url 'product_detail' product.id %}">
+                    <img src="{{ product.image.url }}" alt="{{ product.name }}">
+                </a>
+                <div>
+                    <h2>{{ product.name }}</h2>
+                    <p>{{ product.description }}</p>
+                    <p>السعر: {{ product.price }} $</p>
+                    <p>النوع: {{ product.get_type_display }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+            <div class="no-products">
+                <p>ليس لديك أي منتجات مفضلة حتى الآن.</p>
+                <a href="{% url 'product1' %}" class="back-link">الرجوع لصفحه المنتجات</a>
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>

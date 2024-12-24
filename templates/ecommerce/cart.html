@@ -1,0 +1,130 @@
+{% extends 'ecommerce/home.html' %}
+{% load static %}
+{% block content %}
+{% load custom_filters %}
+{% include 'ecommerce/message.html' %}
+
+<div class="my-formcontiner p-5 my-5 rounded border border-warning">
+    <h2 class="text-center">Cart</h2>
+    <hr>
+    {% if order %}
+        <h5>
+            <span class="name-info">Full Name: {{ request.user.get_full_name  }}</span>
+            <hr>
+            <span class="order-info">Order Number: {{ order.id }}</span>
+            <hr>
+            <span class="product-info">Product number: {{ orderdetails.count }} Total: {{ total }}$</span>
+            <br>
+            <div class="d-flex justify-content-between mt-3">
+                <a href="{% url 'product1' %}" class="btn btn-outline-secondary btn-sm">عودة للتسوق</a>  <!-- زر العودة للتسوق -->
+                <a href="{% url 'payment' %}" class="btn btn-outline-success btn-sm">الدفع</a>  <!-- زر الدفع -->
+            </div>
+        </h5>
+    </div> <!-- إغلاق المستطيل هنا -->
+
+    <!-- إضافة جدول المنتجات خارج المستطيل -->
+    <div class="table-responsive my-4">
+        <table class="table table-hover">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Product</th>
+                    <th scope="col">Image</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Total</th>
+                    <th scope="col">Control</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for line in orderdetails %}
+                <tr>
+                    <th scope="row">{{ forloop.counter }}</th>
+                    <td>{{ line.product.name }}</td>
+                    <td>
+                        <img src="{{ line.product.image.url }}" style="width: 80px; height: 80px;" alt="{{ line.product.name }}">
+                    </td>
+                    <td>
+                        <form method="POST" action="{% url 'update_cart_quantity' pk=line.id %}">
+                            {% csrf_token %}
+                            <div class="d-flex justify-content-between">
+                                <button type="submit" name="action" value="decrease" class="btn btn-outline-danger btn-sm">-</button>
+                                <span class="quantity-value">{{ line.quantity }}</span>
+                                <button type="submit" name="action" value="increase" class="btn btn-outline-success btn-sm">+</button>
+                            </div>
+                        </form>
+                    </td>
+                    <td>{{ line.price }}</td>
+                    <td class="total-amount">
+                        {{ line.quantity|multiply:line.price }}$
+                    </td>
+                    <td> 
+                        <a href="{% url 'remove_from_cart' pk=line.id %}" class="btn btn-outline-danger btn-sm">Remove</a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="6" class="alert alert-warning text-center">No details here</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    {% else %}
+        <div class="my-formcontiner p-5 my-5 rounded border border-warning">
+            <h4 class="alert alert-warning">
+                No orders here.
+                <a href="{% url 'product1' %}" class="text-dark">All Products</a>
+            </h4>
+        </div>
+    {% endif %}
+{% endblock %}     
+
+<!-- تضمين الـ CSS داخل الصفحة -->
+<style>
+    /* تأثير لتكبير الأرقام والأسماء عند المرور بالماوس */
+    th, td {
+        font-size: 1rem;
+    }
+
+    /* تأثير خاص على الأرقام التي تعرض العدد الإجمالي */
+    .total-amount {
+        font-weight: bold;
+        color: darkred;
+        transition: all 0.3s ease !important;
+    }
+
+    .total-amount:hover {
+        font-size: 1.2rem !important;  /* تكبير الحجم */
+        color: #ff6347 !important;  /* تغيير اللون عند المرور بالماوس */
+    }
+
+    /* التأثير على الأرقام التي تعرض الكميات */
+    .quantity-value {
+        font-weight: bold;
+        font-size: 1.1rem;
+        color: #007bff;
+        transition: color 0.3s ease, font-size 0.3s ease;
+    }
+
+    .quantity-value:hover {
+        color: #ff6347;
+        font-size: 1.3rem !important;  /* تكبير الحجم */
+        cursor: pointer;  /* تغيير شكل المؤشر عند المرور */
+    }
+
+    /* تأثيرات الأرقام والأسماء في المستطيل العلوي */
+    .name-info, .order-info, .product-info {
+        font-size: 1.2rem;
+        font-weight: bold;
+        color: #333;
+        transition: all 0.3s ease;
+    }
+
+    .name-info:hover, .order-info:hover, .product-info:hover {
+        color: #ff6347 !important;  /* تغيير اللون إلى الأحمر عند المرور */
+        font-size: 1.3rem !important;  /* تكبير الحجم */
+        cursor: pointer;  /* تغيير شكل المؤشر عند المرور */
+    }
+</style>

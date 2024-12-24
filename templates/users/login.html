@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="ar">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ecommerce | {{title}}</title>
+  <!-- ربط Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    html, body {
+        height: 100%; /* تأكد من أن الـ body يغطي كامل الشاشة */
+        margin: 0;
+        padding: 0;
+        padding-top: 300px; /* مسافة من الأعلى */
+        padding-bottom: 300px; /* مسافة من الأسفل */
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: #f4f4f4; /* الخلفية العادية بلون فاتح */
+        color: black; /* النصوص باللون الأسود */
+    }
+
+    .login-form {
+        background: linear-gradient(135deg, #7421c2, #8A2BE2); /* خلفية بتدرج لوني للنموذج */
+        padding: 40px;
+        border-radius: 20px;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+        width: 650px; /* تحديد عرض ثابت للنموذج */
+        text-align: center;
+        z-index: 10;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        position: relative;
+        animation: slideInFromBottom 1s ease-out;
+    }
+
+    @keyframes slideInFromBottom {
+        from {
+            transform: translateY(100px);
+            opacity: 0;
+        }
+
+        to {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+
+    .login-form h2 {
+        color: white;
+        margin-bottom: 15px;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+        width: 100%;
+        text-align: left;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 5px;
+        font-size: 16px;
+        text-align: right;
+        color: white;
+    }
+
+    input {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        font-size: 14px;
+        box-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+    }
+
+    button {
+        width: 100%;
+        padding: 12px;
+        background: linear-gradient(90deg, #7421c2, #3f016b);
+        border: none;
+        border-radius: 5px;
+        color: white;
+        font-size: 19px;
+        font-weight: bold;
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+        transition: all 0.3s ease;
+        box-shadow: 0 0 15px rgba(138, 43, 226, 0.5);
+    }
+
+    button:hover {
+        background: linear-gradient(90deg, #4B0082, #8A2BE2);
+        box-shadow: 0 0 25px rgba(138, 43, 226, 0.8), 0 0 15px rgba(138, 43, 226, 0.6);
+    }
+
+    .social-buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .google-login,
+    .facebook-login {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 12px;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        background: white;
+        color: black;
+    }
+
+    .google-login:hover,
+    .facebook-login:hover {
+        color: white;
+        background: linear-gradient(90deg, #4B0082, #8A2BE2);
+        box-shadow: 0 0 25px rgba(255, 255, 255, 0.8), 0 0 15px rgba(255, 255, 255, 0.6);
+    }
+
+    .google-login img,
+    .facebook-login img {
+        width: 20px;
+        height: 20px;
+        margin-right: 10px;
+    }
+
+    @media (max-width: 600px) {
+        .login-form {
+            width: 80%;
+        }
+
+        .google-login,
+        .facebook-login {
+            font-size: 14px;
+        }
+    }
+
+    .register-section {
+        margin-top: 5px;
+        font-size: 16px;
+        color: white;
+    }
+
+    .register-link {
+        color: #FFD700;
+        text-decoration: none;
+        font-weight: bold;
+        transition: color 0.3s ease;
+    }
+
+    .register-link:hover {
+        color: #FFA500;
+        text-decoration: underline;
+    }
+
+    .divider {
+        margin: 20px 0;
+        text-align: center;
+        color: white;
+        font-weight: bold;
+    }
+
+    /* Styling for the checkbox */
+    .remember-checkbox {
+        margin-right: 10px;
+        width: 18px;
+        height: 18px;
+        vertical-align: middle;
+    }
+
+    label[for="remember-me"] {
+        font-size: 14px;
+        color: white;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="login-form">
+    <h2>تسجيل الدخول إلى حسابك</h2>
+    {% include 'ecommerce/message.html' %}
+    <form method="POST">
+      {% csrf_token %}
+      <div class="form-group">
+        <label for="login-username">:اسم المستخدم أو البريد الإلكتروني</label>
+        <input type="text" id="login-username" name="username" placeholder="ادخل اسم المستخدم أو البريد الإلكتروني" required>
+      </div>
+      <div class="form-group">
+        <label for="login-password">:كلمة المرور</label>
+        <input type="password" id="login-password" name="password" placeholder="ادخل كلمة المرور" required>
+      </div>
+
+      <!-- Remember me Checkbox -->
+      <div class="form-group">
+        <input type="checkbox" id="remember-me" checked name="rememberme" class="remember-checkbox">
+        <label for="remember-me">تذكرني لتسجيل الدخول </label>
+      </div>
+
+      <button type="submit">:تسجيل الدخول</button>
+    </form>
+
+    <div class="divider">أو</div>
+    <div class="social-buttons">
+      <button class="google-login">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/0/0b/Google_Logo.svg" alt="Google" />
+        تسجيل الدخول باستخدام جوجل
+      </button>
+      <button class="facebook-login">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Facebook_f_logo_%282019%29.svg/512px-Facebook_f_logo_%282019%29.svg.png" alt="Facebook" />
+        تسجيل الدخول باستخدام فيسبوك
+      </button>
+    </div>
+
+    <div class="register-section">
+      <p>إذا لم يكن لديك حساب، يمكنك <a href="{% url 'signup'%}" class="register-link">إنشاء حساب جديد</a>.</p>
+    </div>
+  </div>
+</body>
+
+</html>

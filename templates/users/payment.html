@@ -1,0 +1,198 @@
+{% extends 'ecommerce/home.html' %}
+{% load custom_filters %}
+
+{% block content %}
+    <div class="form-container">
+        {% if request.user.is_authenticated %}
+        <div class="row">
+            <!-- قسم عرض تفاصيل الطلب -->
+            <div class="col-md-6 order-summary-container">
+                <h5>تفاصيل الطلب</h5>
+                
+                <!-- إضافة تفاصيل العميل ورقم الطلب -->
+                <div class="order-info">
+                    {% if order %}
+                    <p><strong>اسم العميل:</strong> {{ request.user.get_full_name }}</p>
+                    <p><strong>رقم الطلب:</strong> {{ order.id }}</p>
+                    <p><strong>الإجمالي:</strong> {{ total }}$</p>
+                    {% endif %}
+                </div>
+
+                {% if orderdetails %}
+                <!-- جدول تفاصيل الطلب -->
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">المنتج</th>
+                            <th scope="col">الكمية</th>
+                            <th scope="col">السعر</th>
+                            <th scope="col">الإجمالي</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for line in orderdetails %}
+                        <tr>
+                            <td>{{ line.product.name }}</td>
+                            <td>{{ line.quantity }}</td>
+                            <td>{{ line.price }}$</td>
+                            <td>{{ line.quantity|multiply:line.price }}$</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <hr>
+                <h5>الإجمالي النهائي: {{ total }}$</h5>
+                {% else %}
+                <p>لا توجد منتجات في سلة التسوق.</p>
+                {% endif %}
+            </div>
+        </div>
+         <!-- قسم اختيار طرق الدفع -->
+        <div id="payment-methods" style="display:none; margin-top: 20px;">
+            <h5>اختر طريقة الدفع</h5>
+            <div id="paypal-button-container"></div>
+            <button type="button" class="btn btn-info" id="stripe-method">Stripe</button>
+            <button type="button" class="btn btn-warning" id="fawry-method">فوري</button>
+        </div>
+        <button type="button" class="btn btn-primary" id="select-payment-method">اختار طريقة الدفع</button>
+    </div>
+</form>      
+</div>
+{% endif %}
+</div>
+
+    <!-- كود زر PayPal -->
+    <script src="https://www.paypal.com/sdk/js?client-id=AVUhCh-OEq0fCPoC7B4ReBidtZIwlxwoUlqqq0ybvg4p42kEP1mgGnBo0jq2ty2gW0sHTzT_eVuqeISA&components=buttons"></script>
+
+    <script>
+        paypal.Buttons({
+            createOrder: function(data, actions) {
+                return actions.order.create({
+                    purchase_units: [{
+                        amount: {
+                            value: '{{ total }}'  // استخدام القيمة القادمة من قاعدة البيانات
+                        }
+                    }]
+                });
+            },
+            onApprove: function(data, actions) {
+                return actions.order.capture().then(function(details) {
+                    fetch('/paypal-payment-success/', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            orderID: data.orderID,
+                            payerID: data.payerID
+                        })
+                    })
+                    .then(response => response.json())
+                    .then(responseData => {
+                        if (responseData.status === 'success') {
+                            window.location.href = "/payment-success/";
+                        } else {
+                            window.location.href = "/payment-failure/";
+                        }
+                    });
+                });
+            }
+        }).render('#paypal-button-container');
+    </script>
+
+    <style>
+        .form-container {
+            background-color: #f5f5f5;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            margin: 20px auto;
+            max-width: 900px;
+        }
+        
+        .order-summary-container {
+            background-color: #ffffff;
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .customer-info-container {
+            background-color: #ffffff;
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h5 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #007bff;
+            margin-bottom: 20px;
+        }
+
+        .order-info p {
+            font-size: 1.1rem;
+            color: #555;
+            margin-bottom: 10px;
+        }
+
+        .table {
+            margin-top: 20px;
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .table th, .table td {
+            padding: 10px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+
+        .table th {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        .table td {
+            background-color: #f9f9f9;
+        }
+
+        .table tr:nth-child(even) td {
+            background-color: #f1f1f1;
+        }
+
+        .table td {
+            font-size: 1rem;
+        }
+
+        hr {
+            border: 1px solid #ddd;
+            margin: 20px 0;
+        }
+
+        /* تنسيق زر "اختار طريقة الدفع" */
+        #select-payment-method {
+            margin-top: 20px;
+            background-color: #007bff;
+            color: white;
+            border-radius: 5px;
+        }
+
+        #payment-methods {
+            margin-top: 20px;
+        }
+
+        .btn {
+            margin-right: 10px;
+        }
+    </style>
+
+    <script>
+        document.getElementById("select-payment-method").addEventListener("click", function() {
+            document.getElementById("payment-methods").style.display = "block";
+        });
+    </script>
+
+{% endblock %}
+
