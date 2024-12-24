@@ -1,0 +1,4 @@
+موقع هو متجر إلكتروني تم تطويره باستخدام بايثون وجانغو، يقدم مجموعة من الخدمات المتكاملة للمستخدمين. يتميز الموقع بواجهة مستخدم بسيطة وسهلة الاستخدام، حيث يمكن للمستخدمين تصفح المنتجات، إضافة العناصر إلى سلة المشتريات، وتأكيد عمليات الدفع بكل سهولة. كما يتيح الموقع للمستخدمين إدارة حساباتهم الشخصية، تتبع طلباتهم السابقة، وتحديث بياناتهم. بالإضافة إلى ذلك، يتم تطبيق سياسات أمان قوية لحماية معلومات المستخدمين وعمليات الدفع.
+
+Description in English:
+The website is an e-commerce platform developed using Python and Django, offering a range of integrated services to users. The site features a simple and user-friendly interface where customers can browse products, add items to their shopping cart, and complete purchases effortlessly. It also allows users to manage their personal accounts, track past orders, and update their information. Additionally, robust security policies are implemented to protect user data and payment transactions.
